@@ -46,8 +46,6 @@ const Contact = () => {
     {
       icon: <FaPhone />,
       title: 'Phone',
-      content: '+90 534 766 5616',
-      link: 'tel:+905347665616'
     },
     {
       icon: <FaEnvelope />,
