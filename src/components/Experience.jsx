@@ -11,6 +11,7 @@ const experiences = [
     role: 'Backend Developer Intern',
     featured: true,
     brand: 'n11',
+    brandImage: '/brand-logos/n11-logo-2025.png',
     brandClass: 'n11',
     companyUrl: 'https://www.n11.com/',
     eyebrow: ['Marketplace Engineering', 'Pazaryeri Mühendisliği'],
@@ -190,7 +191,14 @@ const Experience = () => {
               <div className="experience-main">
                 {item.featured && (
                   <div className="experience-featured-head">
-                    <div className={`experience-brand experience-brand-${item.brandClass}`} aria-label={item.company}>{item.brand}</div>
+                    <div
+                      className={`experience-brand experience-brand-${item.brandClass}`}
+                      aria-label={item.brandImage ? undefined : item.company}
+                    >
+                      {item.brandImage
+                        ? <img src={item.brandImage} alt={`${item.company} logo`} />
+                        : item.brand}
+                    </div>
                     <div>
                       <span className="experience-eyebrow">{item.eyebrow[copyIndex]}</span>
                       <h3>{item.role}</h3>

@@ -24,6 +24,25 @@ const Header = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    const closeOnDesktop = () => {
+      if (window.innerWidth > 800) setMenuOpen(false);
+    };
+
+    document.body.classList.toggle('nav-open', menuOpen);
+    window.addEventListener('keydown', closeOnEscape);
+    window.addEventListener('resize', closeOnDesktop);
+
+    return () => {
+      document.body.classList.remove('nav-open');
+      window.removeEventListener('keydown', closeOnEscape);
+      window.removeEventListener('resize', closeOnDesktop);
+    };
+  }, [menuOpen]);
+
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <nav className="navbar container" aria-label="Main navigation">
