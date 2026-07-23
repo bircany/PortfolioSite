@@ -7,7 +7,6 @@ import {
   FaLinkedinIn,
   FaMapMarkerAlt,
   FaMediumM,
-  FaPhoneAlt,
   FaSpotify,
   FaStackOverflow,
 } from 'react-icons/fa';
@@ -34,7 +33,6 @@ const Contact = () => {
             <p>{t.contact.body}</p>
             <div className="contact-lines">
               <a href="mailto:bircanyilmaz622@gmail.com"><FaEnvelope /><span>{t.contact.email}<strong>bircanyilmaz622@gmail.com</strong></span></a>
-              <a href="tel:+905347665616"><FaPhoneAlt /><span>{t.contact.phone}<strong>+90 534 766 56 16</strong></span></a>
               <div><FaMapMarkerAlt /><span>{t.contact.location}<strong>Samsun · İstanbul, Türkiye</strong></span></div>
             </div>
             <div className="contact-social">
