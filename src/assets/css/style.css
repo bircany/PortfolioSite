@@ -296,6 +296,20 @@ h2 em, h1 em { color: var(--acid-strong); font-family: var(--serif); font-weight
 .publication-grid p, .life-grid p { color: var(--muted); max-width: 630px; }
 .publication-grid .tag-list { margin-top: 28px; }
 .publication-grid .tag-list span { color: var(--muted); border-color: var(--line); }
+.press-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.press-card { min-height: 430px; padding: 36px; display: flex; flex-direction: column; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); }
+.press-card-featured { grid-column: 1 / -1; min-height: 440px; padding: 48px; background: var(--ink); color: var(--white); }
+.press-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 18px; color: var(--muted); font: 400 9px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.press-card-featured .press-card-meta { color: #7f9098; }
+.press-category { width: fit-content; margin-top: 48px; padding: 7px 9px; color: var(--ink); background: var(--acid); font: 500 8px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.press-card h3 { max-width: 910px; margin: 22px 0 18px; font-size: clamp(2rem, 4.3vw, 4.5rem); line-height: 1.03; }
+.press-card:not(.press-card-featured) h3 { font-size: clamp(1.8rem, 3vw, 3rem); }
+.press-card > p { max-width: 780px; color: var(--muted); font-size: 13px; }
+.press-card-featured > p { color: #a5b1b6; }
+.press-links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: auto; padding-top: 34px; }
+.press-links a { display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid var(--line); color: var(--ink); font: 500 9px var(--mono); transition: color .2s, border-color .2s, transform .2s; }
+.press-card-featured .press-links a { color: #dce6e2; border-color: var(--line-dark); }
+.press-links a:hover { color: var(--acid-strong); border-color: var(--acid-strong); transform: translateY(-2px); }
 .coming-card { display: flex; flex-direction: column; justify-content: space-between; }
 .coming-card > svg { color: var(--acid-strong); font-size: 34px; }
 .coming-card h3 { margin: 0; font-size: 2rem; }
@@ -533,7 +547,8 @@ h2 em, h1 em { color: var(--acid-strong); font-family: var(--serif); font-weight
   .journal-heading { display: block; }
   .journal-heading .text-link { margin-top: 24px; }
   .journal-article-grid { grid-template-columns: 1fr; }
-  .publication-grid, .life-grid, .photo-journal { grid-template-columns: 1fr; }
+  .publication-grid, .life-grid, .photo-journal, .press-grid { grid-template-columns: 1fr; }
+  .press-card-featured { grid-column: auto; }
   .photo-main { min-height: 460px; }
   .project-modal.with-preview { grid-template-columns: 1fr; }
   .modal-preview-panel { min-height: 420px; }
@@ -589,6 +604,7 @@ h2 em, h1 em { color: var(--acid-strong); font-family: var(--serif); font-weight
   .architecture-scene { min-height: 520px; transform: none; }
   .architecture-node { width: 92px; min-height: 70px; padding: 9px; }
   .publication-grid article, .life-grid article, .photo-note { padding: 30px; }
+  .press-card, .press-card-featured { min-height: 400px; padding: 30px; }
   .consent-banner { grid-template-columns: 1fr; }
 }
 
@@ -639,6 +655,10 @@ h2 em, h1 em { color: var(--acid-strong); font-family: var(--serif); font-weight
 [data-theme="dark"] .publication-grid .tag-list span { border-color: var(--line-dark); }
 [data-theme="dark"] .publication-grid,
 [data-theme="dark"] .life-grid { background: var(--line-dark); border-color: var(--line-dark); }
+[data-theme="dark"] .press-grid,
+[data-theme="dark"] .press-card { border-color: var(--line-dark); }
+[data-theme="dark"] .press-card:not(.press-card-featured) { background: #0d1d27; color: #edf5f1; }
+[data-theme="dark"] .press-card:not(.press-card-featured) .press-links a { color: #edf5f1; border-color: var(--line-dark); }
 [data-theme="dark"] .project-modal { background: #0d1d27; color: #edf5f1; }
 [data-theme="dark"] .project-modal .button-ghost { color: #edf5f1; border-color: var(--line-dark); }
 [data-theme="dark"] .modal-close { color: #edf5f1; border-color: var(--line-dark); background: #0d1d27; }
