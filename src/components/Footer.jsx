@@ -1,31 +1,22 @@
 import React from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { Link } from 'react-scroll';
+import { FaArrowUp } from 'react-icons/fa';
+import { useSitePreferences } from '../context/SitePreferences';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
+  const { t } = useSitePreferences();
   return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer-content">
-          <div className="footer-copyright">
-            <p>© {currentYear} Bircan Yılmaz. All rights reserved.</p>
-          </div>
-          <div className="footer-social">
-            <a href="https://github.com/bircany" target="_blank" rel="noopener noreferrer">
-              <FaGithub />
-            </a>
-            <a href="https://www.linkedin.com/in/bircany/" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin />
-            </a>
-            <a href="mailto:bircanyilmaz@622.gmail.com">
-              <FaEnvelope />
-            </a>
-          </div>
-        </div>
+  <footer className="footer">
+    <div className="container footer-content">
+      <div className="wordmark footer-wordmark">
+        <span className="wordmark-mark">BY</span>
+        <span className="wordmark-copy">Bircan Yılmaz<small>Backend & AI Developer</small></span>
       </div>
-    </footer>
+      <p>© {new Date().getFullYear()} {t.footer.built} · <a href="/privacy.html">{t.footer.privacy}</a></p>
+      <Link to="hero" smooth duration={500} className="back-to-top">{t.footer.top} <FaArrowUp /></Link>
+    </div>
+  </footer>
   );
 };
 
-export default Footer; 
+export default Footer;

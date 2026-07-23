@@ -1,61 +1,72 @@
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-scroll';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaArrowRight, FaGithub, FaLinkedinIn } from 'react-icons/fa';
+import { useSitePreferences } from '../context/SitePreferences';
 
 const Hero = () => {
-  useEffect(() => {
-    const handleScroll = () => {
-      const elements = document.querySelectorAll('.fade-in');
-      elements.forEach((element) => {
-        const elementPosition = element.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        if (elementPosition < windowHeight * 0.8) 
-        {
-          element.classList.add('visible');
-        }
-      });
-    };
+  const visualRef = useRef(null);
+  const { t } = useSitePreferences();
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); 
-    
-    return () => { 
-      window.removeEventListener('scroll', handleScroll); 
-    };
-   }, []);
+  const handlePointerMove = (event) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    visualRef.current?.style.setProperty('--parallax-x', `${x * 28}px`);
+    visualRef.current?.style.setProperty('--parallax-y', `${y * 22}px`);
+    visualRef.current?.style.setProperty('--tilt-x', `${y * -4}deg`);
+    visualRef.current?.style.setProperty('--tilt-y', `${x * 5}deg`);
+  };
 
   return (
-    <section id="hero" className="hero-section">
-      <div className="container">
-        <div className="hero-content fade-in">
-          <h1>Bircan Yılmaz</h1>
-          <h2>Software Engineer</h2>
-          <p>
-            Driven by a passion for AI and backend development to build the technologies of tomorrow.
-          </p>
-          <div className="hero-buttons">
-            <Link to="contact" smooth={true} offset={-70} duration={500}>
-              <button className="btn btn-primary">Contact With</button>
-            </Link>
-            <Link to="projects" smooth={true} offset={-70} duration={500}>
-              <button className="btn btn-outline">See My Projects</button>
-            </Link>
-          </div>
-          <div className="social-icons">
-            <a href="https://github.com/bircany" target="_blank" rel="noopener noreferrer">
-              <FaGithub />
-            </a>
-            <a href="https://www.linkedin.com/in/bircany/" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin />
-            </a>
-            <a href="mailto:bircanyilmaz@622.gmail.com">
-              <FaEnvelope />
-            </a>
-          </div>
+  <section id="hero" className="hero-section">
+    <div className="hero-grid container" onPointerMove={handlePointerMove} onPointerLeave={() => visualRef.current?.removeAttribute('style')}>
+      <div className="hero-copy">
+        <div className="availability"><span /> {t.hero.availability}</div>
+        <p className="eyebrow">{t.hero.role}</p>
+        <h1>{t.hero.titleBefore} <em>{t.hero.titleEmphasis}</em> {t.hero.titleAfter}</h1>
+        <p className="hero-lead">{t.hero.lead}</p>
+        <div className="hero-actions">
+          <Link to="projects" smooth offset={-76} duration={500} className="button button-primary">
+            {t.hero.work} <FaArrowRight />
+          </Link>
+          <Link to="contact" smooth offset={-76} duration={500} className="button button-ghost">
+            {t.hero.contact}
+          </Link>
+        </div>
+        <div className="hero-social">
+          <a href="https://github.com/bircany" target="_blank" rel="noreferrer"><FaGithub /> GitHub</a>
+          <a href="https://www.linkedin.com/in/bircany/" target="_blank" rel="noreferrer"><FaLinkedinIn /> LinkedIn</a>
         </div>
       </div>
-    </section>
+
+      <div className="hero-visual" aria-label="Bircan Yılmaz profile" ref={visualRef}>
+        <div className="parallax-orbit orbit-one" />
+        <div className="parallax-orbit orbit-two" />
+        <div className="portrait-frame">
+          <div className="portrait-index">01 / ENGINEER</div>
+          <img src="/bircan-yilmaz.png" alt="Bircan Yılmaz" />
+          <div className="portrait-caption">
+            <strong>Bircan Yılmaz</strong>
+            <span>{t.hero.location}</span>
+          </div>
+        </div>
+        <div className="system-card">
+          <div className="system-head"><span /><span /><span /><small>system.profile</small></div>
+          <code>
+            <span className="code-muted">{'{'}</span><br />
+            &nbsp;&nbsp;role: <b>"backend_developer"</b>,<br />
+            &nbsp;&nbsp;stack: <b>["Java", ".NET", "AI"]</b>,<br />
+            &nbsp;&nbsp;status: <i>"building"</i><br />
+            <span className="code-muted">{'}'}</span>
+          </code>
+        </div>
+      </div>
+    </div>
+    <div className="hero-marquee" aria-hidden="true">
+      <div>JAVA · SPRING BOOT · .NET CORE · MICROSERVICES · POSTGRESQL · DOCKER · AI SYSTEMS · CI/CD ·</div>
+    </div>
+  </section>
   );
 };
 
-export default Hero; 
+export default Hero;
